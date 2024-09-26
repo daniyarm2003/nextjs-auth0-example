@@ -1,0 +1,28 @@
+services:
+  app-dev:
+    container_name: nextjs-auth0-example-app-dev
+    image: nextjs-auth0-example-app-image-dev
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: dev
+    ports:
+      - "3000:3000"
+    profiles:
+      - dev
+    volumes:
+      - .:/app
+    working_dir: /app
+  pg-dev:
+    container_name: nextjs-auth0-example-db-dev
+    image: postgres:14-alpine
+    env_file:
+      - .env.development.local
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    profiles:
+      - dev
+    ports:
+      - "6543:5432"
+volumes:
+  pgdata:
