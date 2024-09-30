@@ -9,7 +9,9 @@ COPY package*.json .
 RUN npm i
 
 COPY prisma .
+
 RUN npx prisma generate
+RUN dotenv -e .env.development.local npx prisma db push
 
 FROM base AS dev
 
