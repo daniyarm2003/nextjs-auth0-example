@@ -1,17 +1,16 @@
-import NavbarLink from "./navbarLink";
-import Button from "@mui/material/Button";
-
-import { useUser } from "@auth0/nextjs-auth0/client";
-
+import NavbarLink from "./navbarLink"
+import Button from "@mui/material/Button"
 import style from './navbar.module.css'
-
+import { Claims, getSession } from "@auth0/nextjs-auth0"
 
 interface Props {
     links: NavbarLink[]
+    user?: Claims
 }
 
-export default function NavbarDesktopView({ links }: Props) {
-    const { user } = useUser()
+export default async function NavbarDesktopView({ links }: Props) {
+    const session = await getSession()
+    const user = session?.user
 
     const shouldDisplayLink = (link: NavbarLink) => {
         return !link.authorizedOnly || user !== undefined

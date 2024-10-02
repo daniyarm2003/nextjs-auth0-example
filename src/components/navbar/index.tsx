@@ -1,18 +1,15 @@
-'use client'
-
 import Toolbar from '@mui/material/Toolbar'
 import AppBar from '@mui/material/AppBar'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import { useTheme } from '@mui/material/styles'
 import NavbarLink from './navbarLink'
 import NavbarDesktopView from './desktop'
 import NavbarMobileView from './mobile'
+import { getSession } from '@auth0/nextjs-auth0'
 
-export default function Navbar() {
-    const theme = useTheme()
-    const desktopView = useMediaQuery(theme.breakpoints.up('md'))
+export default async  function Navbar() {
+    const session = await getSession()
+    const user = session?.user
 
     const links: NavbarLink[] = [
         { name: 'Home', link: '/', authorizedOnly: false },
@@ -23,13 +20,18 @@ export default function Navbar() {
     return (
         <AppBar position='sticky' color='primary'>
             <Toolbar>
-                { desktopView ? (
-                    <NavbarDesktopView links={links} />
-                ) : (
-                    <NavbarMobileView links={links} />
-                )}
+                <Box sx={{ display: { xs: 'none', md: 'inherit' } }}>
+                    <NavbarDesktopView links={links} user={user} />
+                </Box>
+                <Box sx={{ display: { xs: 'inherit', md: 'none' } }}>
+                    <NavbarMobileView links={links} user={user} />
+                </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
-                    <Button color='inherit' href='/api/auth/login'>Log in/Sign Up</Button>
+                    {user ? (
+                        <Button color='inherit' href='/api/auth/logout'>Log Out</Button>
+                    ) : (
+                        <Button color='inherit' href='/api/auth/login'>Log In/Sign Up</Button>
+                    )}
                 </Box>
             </Toolbar>
         </AppBar>

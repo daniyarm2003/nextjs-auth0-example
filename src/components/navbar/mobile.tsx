@@ -1,18 +1,19 @@
+'use client'
+
 import NavbarLink from "./navbarLink"
-import { useUser } from "@auth0/nextjs-auth0/client"
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from "@mui/icons-material/Menu"
 import { useState } from "react"
 import Menu from "@mui/material/Menu"
 import MenuItem from '@mui/material/MenuItem'
+import { Claims } from "@auth0/nextjs-auth0"
 
 interface Props {
-    links: NavbarLink[]
+    links: NavbarLink[],
+    user?: Claims
 }
 
-export default function NavbarMobileView({ links }: Props) {
-    const { user } = useUser()
-
+export default function NavbarMobileView({ links, user }: Props) {
     const [ menuAnchorElement, setMenuAnchorElement ] = useState<HTMLElement>()
     const isMenuOpen = menuAnchorElement !== undefined
 
