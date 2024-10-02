@@ -8,12 +8,31 @@ const theme = createTheme({
             main: '#5363A3'
         },
         secondary: {
-            main: '#448395' //1B254E
+            main: '#4443bc' //1B254E
         },
         background: {
             default: '#8091D8'
         }
     }
 })
+
+theme.typography.h1 = {
+    fontSize: '4.0rem',
+    marginTop: '10px',
+    fontWeight: 'bolder',
+    [theme.breakpoints.down('sm')]: {
+        fontSize: '2.5rem'
+    },
+    color: '#000000'
+}
+
+theme.typography.h2 = {
+    fontSize: '3.0rem',
+    fontWeight: 'normal',
+    [theme.breakpoints.down('sm')]: {
+        fontSize: '1.5rem'
+    },
+    color: '#232323'
+}
 
 export default theme

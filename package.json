@@ -10,8 +10,10 @@
     "prismaDev": "npx prisma generate && dotenv -e .env.development.local npx prisma db push"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^3.5.0",
     "@emotion/cache": "^11.13.1",
     "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.1",
     "@mui/material": "^6.1.1",
     "@mui/material-nextjs": "^6.1.1",
     "@prisma/client": "^5.20.0",
