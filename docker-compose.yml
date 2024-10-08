@@ -1,11 +1,8 @@
 services:
   app-dev:
     container_name: nextjs-auth0-example-app-dev
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-      target: dev
-    image: nextjs-auth0-example-app-image-dev
+    image: node:20.9-alpine
+    command: npm run dev
     ports:
       - "3000:3000"
     profiles:

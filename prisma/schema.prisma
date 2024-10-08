@@ -19,3 +19,19 @@ model TestRelation {
   email String @unique
   created DateTime @default(now())
 }
+
+model User {
+  id String @db.VarChar(64) @id
+  name String @db.VarChar(255)
+  email String @db.VarChar(255)
+  iconUrl String?
+  bio String?
+  role UserRole @default(USER)
+  createdAt DateTime @default(now())
+}
+
+enum UserRole {
+  USER
+  MODERATOR
+  DEVELOPER
+}
