@@ -7,10 +7,11 @@ import { useState } from "react"
 import Menu from "@mui/material/Menu"
 import MenuItem from '@mui/material/MenuItem'
 import { Claims } from "@auth0/nextjs-auth0"
+import { User } from "@prisma/client"
 
 interface Props {
     links: NavbarLink[],
-    user?: Claims
+    user?: User
 }
 
 export default function NavbarMobileView({ links, user }: Props) {

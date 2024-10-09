@@ -6,10 +6,25 @@ import NavbarLink from './navbarLink'
 import NavbarDesktopView from './desktop'
 import NavbarMobileView from './mobile'
 import { getSession } from '@auth0/nextjs-auth0'
+import { UserServiceImpl } from '@/services/userService'
+import prismaClient from '@/lib/db'
+import { User } from '@prisma/client'
+import logger from '@/lib/logger'
 
-export default async  function Navbar() {
+export default async function Navbar() {
     const session = await getSession()
-    const user = session?.user
+    const userService = new UserServiceImpl(prismaClient)
+
+    let user: User | undefined = undefined
+
+    if(session) {
+        try {
+            user = await userService.getAuthorizedUser(session)
+        }
+        catch(err) {
+            logger.error(err)
+        }
+    }
 
     const links: NavbarLink[] = [
         { name: 'Home', link: '/', authorizedOnly: false },

@@ -32,7 +32,7 @@ theme.typography.h2 = {
     [theme.breakpoints.down('sm')]: {
         fontSize: '1.5rem'
     },
-    color: '#232323'
+    color: '#434343'
 }
 
 export default theme

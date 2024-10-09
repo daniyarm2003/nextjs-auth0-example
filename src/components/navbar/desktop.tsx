@@ -1,17 +1,15 @@
 import NavbarLink from "./navbarLink"
 import Button from "@mui/material/Button"
 import style from './navbar.module.css'
-import { Claims, getSession } from "@auth0/nextjs-auth0"
+import { Claims } from "@auth0/nextjs-auth0"
+import { User } from "@prisma/client"
 
 interface Props {
     links: NavbarLink[]
-    user?: Claims
+    user?: User
 }
 
-export default async function NavbarDesktopView({ links }: Props) {
-    const session = await getSession()
-    const user = session?.user
-
+export default async function NavbarDesktopView({ links, user }: Props) {
     const shouldDisplayLink = (link: NavbarLink) => {
         return !link.authorizedOnly || user !== undefined
     }

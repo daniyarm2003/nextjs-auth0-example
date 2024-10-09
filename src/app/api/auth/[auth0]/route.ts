@@ -1,25 +1,15 @@
 import prismaClient from "@/lib/db";
 import logger from "@/lib/logger";
-import { AfterCallbackAppRoute, AppRouteHandlerFnContext, handleAuth, handleCallback, handleLogout } from "@auth0/nextjs-auth0";
+import { UserServiceImpl } from "@/services/userService";
+import { AfterCallbackAppRoute, AppRouteHandlerFnContext, handleAuth, handleCallback } from "@auth0/nextjs-auth0";
 import { NextRequest, NextResponse } from "next/server";
 
-const afterCallback: AfterCallbackAppRoute = async (req, session, _state) => {
-    const user = await prismaClient.user.upsert({
-        where: {
-            id: session.user.sub
-        },
-        update: {},
-        create: {
-            id: session.user.sub,
-            email: session.user.email,
-            name: session.user.name,
-            iconUrl: session.user.picture,
-            bio: 'I am a user!'
-        }
-    })
+const afterCallback: AfterCallbackAppRoute = async (_req, session, _state) => {
+    const userService = new UserServiceImpl(prismaClient)
+    const user = await userService.getOrCreateAuthorizedUser(session)
 
     logger.info({
-        message: 'User logged in',
+        action: 'User logged in',
         user
     })
 
@@ -33,7 +23,11 @@ export const GET = handleAuth({
         }
         catch(err) {
             logger.error(err)
-            return NextResponse.redirect(`${process.env.AUTH0_ISSUER_BASE_URL}/v2/logout?client_id=${process.env.AUTH0_CLIENT_ID}&return_to=${process.env.AUTH0_BASE_URL}/api/auth/logout`)
+
+            const redirectBaseURI = `${process.env.AUTH0_ISSUER_BASE_URL}/v2/logout`
+            const returnToURI = `${process.env.AUTH0_BASE_URL}/api/auth/logout`
+
+            return NextResponse.redirect(`${redirectBaseURI}?client_id=${process.env.AUTH0_CLIENT_ID}&return_to=${returnToURI}`)
         }
     }
 })

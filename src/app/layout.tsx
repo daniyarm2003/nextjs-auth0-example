@@ -6,6 +6,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import mainTheme from '@/themes/mainTheme'
 import CssBaseline from "@mui/material/CssBaseline";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
+import Navbar from "@/components/navbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,6 +36,7 @@ export default function RootLayout({
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <ThemeProvider theme={mainTheme}>
               <CssBaseline />
+              <Navbar />
               {children}
             </ThemeProvider>
           </AppRouterCacheProvider>
