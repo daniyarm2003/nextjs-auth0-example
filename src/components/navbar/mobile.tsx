@@ -6,8 +6,8 @@ import MenuIcon from "@mui/icons-material/Menu"
 import { useState } from "react"
 import Menu from "@mui/material/Menu"
 import MenuItem from '@mui/material/MenuItem'
-import { Claims } from "@auth0/nextjs-auth0"
 import { User } from "@prisma/client"
+import Link from "next/link"
 
 interface Props {
     links: NavbarLink[],
@@ -29,7 +29,7 @@ export default function NavbarMobileView({ links, user }: Props) {
             </IconButton>
             <Menu open={isMenuOpen} anchorEl={menuAnchorElement} onClose={() => setMenuAnchorElement(undefined)}>
                 {links.filter(shouldDisplayLink).map(link => (
-                    <MenuItem key={link.name} href={link.link}>{link.name}</MenuItem>
+                    <MenuItem { ...{ component: Link } } key={link.name} href={link.link}>{link.name}</MenuItem>
                 ))}
             </Menu>
         </>

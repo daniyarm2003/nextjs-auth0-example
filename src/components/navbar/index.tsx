@@ -10,6 +10,7 @@ import { UserServiceImpl } from '@/services/userService'
 import prismaClient from '@/lib/db'
 import { User } from '@prisma/client'
 import logger from '@/lib/logger'
+import NavbarProfileDisplay from './navbar-profile-display'
 
 export default async function Navbar() {
     const session = await getSession()
@@ -43,7 +44,7 @@ export default async function Navbar() {
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
                     {user ? (
-                        <Button color='inherit' href='/api/auth/logout'>Log Out</Button>
+                        <NavbarProfileDisplay user={user} />
                     ) : (
                         <Button color='inherit' href='/api/auth/login'>Log In/Sign Up</Button>
                     )}
