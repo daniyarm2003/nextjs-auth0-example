@@ -3,10 +3,10 @@
 import Stack from '@mui/material/Stack'
 import { User } from '@prisma/client'
 import Typography from '@mui/material/Typography'
-import Avatar from '@mui/material/Avatar'
 import { SxProps, Theme } from '@mui/material'
 import { MouseEventHandler, useState } from 'react'
 import NavbarProfileDisplayMenu from './menu'
+import ProfileImage from '@/components/profile-image'
 
 interface Props {
     user: User
@@ -14,11 +14,6 @@ interface Props {
 
 export default function NavbarProfileDisplay({ user }: Props) {
     const [ menuAnchorElement, setMenuAnchorElement ] = useState<HTMLElement>()
-
-    const getAvatarInitials = (name: string) => {
-        const [ firstName, lastName ] = name.split(' ')
-        return `${firstName?.charAt(0)}${lastName?.charAt(0)}`
-    }
 
     const hoverStyle: SxProps<Theme> = {
         '&:hover': {
@@ -47,11 +42,7 @@ export default function NavbarProfileDisplay({ user }: Props) {
     return (
         <>
             <Stack direction='row' sx={[{ textAlign: 'left', p: '5px', transition: '0.25s linear' }, hoverStyle]} spacing={1} onClick={handleClick}>
-                {user.iconUrl ? (
-                    <Avatar alt={user.name} src={user.iconUrl} imgProps={{ referrerPolicy: 'no-referrer' }} sx={{ ...avatarSize }} />
-                ) : (
-                    <Avatar sx={{ bgcolor: 'secondary.main', ...avatarSize }} alt={user.name}>{getAvatarInitials(user.name)}</Avatar>
-                )}
+                <ProfileImage user={user} sx={{ ...avatarSize }} />
                 <Stack direction='column' justifyContent='center'>
                     <Typography variant='body1' sx={{ fontSize: { xs: '0.65em', md: '1em' } }}>{user.name}</Typography>
                     <Typography variant='body2' sx={{ fontSize: { xs: '0.65em', md: '1em' } }}>{user.email}</Typography>
