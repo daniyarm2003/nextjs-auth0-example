@@ -22,8 +22,7 @@ theme.typography.h1 = {
     fontWeight: 'bolder',
     [theme.breakpoints.down('sm')]: {
         fontSize: '2.5rem'
-    },
-    color: '#000000'
+    }
 }
 
 theme.typography.h2 = {
@@ -31,8 +30,7 @@ theme.typography.h2 = {
     fontWeight: 'normal',
     [theme.breakpoints.down('sm')]: {
         fontSize: '1.5rem'
-    },
-    color: '#434343'
+    }
 }
 
 export default theme

@@ -9,6 +9,7 @@ export interface UserService {
     getAuthorizedUser: (session: Session) => Promise<User>
     getOrCreateAuthorizedUser: (session: Session) => Promise<User>
     getAllUsers: () => Promise<User[]>
+    getUserById: (id: string) => Promise<User | null>
 }
 
 export class UserServiceImpl implements UserService {
@@ -56,5 +57,13 @@ export class UserServiceImpl implements UserService {
 
     public async getAllUsers() {
         return await this.prismaClient.user.findMany()
+    }
+
+    public async getUserById(id: string) {
+        return await this.prismaClient.user.findUnique({
+            where: {
+                id
+            }
+        })
     }
 }

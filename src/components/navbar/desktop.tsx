@@ -1,7 +1,6 @@
 import NavbarLink from "./navbarLink"
 import Button from "@mui/material/Button"
 import style from './navbar.module.css'
-import { Claims } from "@auth0/nextjs-auth0"
 import { User } from "@prisma/client"
 
 interface Props {

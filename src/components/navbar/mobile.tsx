@@ -29,7 +29,7 @@ export default function NavbarMobileView({ links, user }: Props) {
             </IconButton>
             <Menu open={isMenuOpen} anchorEl={menuAnchorElement} onClose={() => setMenuAnchorElement(undefined)}>
                 {links.filter(shouldDisplayLink).map(link => (
-                    <MenuItem { ...{ component: Link } } key={link.name} href={link.link}>{link.name}</MenuItem>
+                    <MenuItem component={Link} key={link.name} href={link.link}>{link.name}</MenuItem>
                 ))}
             </Menu>
         </>

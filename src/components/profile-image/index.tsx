@@ -1,4 +1,4 @@
-import Avatar, { AvatarOwnProps, AvatarSlotsAndSlotProps, AvatarTypeMap } from '@mui/material/Avatar'
+import Avatar, { AvatarOwnProps, AvatarSlotsAndSlotProps } from '@mui/material/Avatar'
 import { User } from '@prisma/client'
 
 interface Props extends AvatarOwnProps, AvatarSlotsAndSlotProps {
